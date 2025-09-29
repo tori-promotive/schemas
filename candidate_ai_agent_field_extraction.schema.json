@@ -2,171 +2,159 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.com/schemas/promotive-field-extraction.schema.json",
   "title": "Promotive Conversation Field Extraction",
-  "description": "Schema for extracting candidate and shop info from conversations/call summaries for Promotive.",
+  "description": "Schema for extracting candidate and shop info plus call metadata/transcript for Promotive.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
     "full_name": {
-      "type": [
-        "string",
-        "null"
-      ],
+      "type": ["string","null"],
       "description": "Candidate's full name as provided or inferred."
     },
+    "first_name": {
+      "type": ["string","null"],
+      "description": "Candidate first name, if available."
+    },
+    "last_name": {
+      "type": ["string","null"],
+      "description": "Candidate last name, if available."
+    },
+
     "email": {
-      "type": [
-        "string",
-        "null"
-      ],
+      "type": ["string","null"],
       "format": "email",
       "description": "Candidate email, if present."
     },
     "phone": {
-      "type": [
-        "string",
-        "null"
-      ],
+      "type": ["string","null"],
       "description": "Best callback number in any common US format.",
       "pattern": "^[+]?1?[-.\\s]?\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}$"
     },
+
     "role": {
-      "type": [
-        "string",
-        "null"
-      ],
+      "type": ["string","null"],
       "description": "Target role/title the candidate is interested in (e.g., 'A-tech', 'Service Advisor')."
     },
     "years_experience": {
-      "type": [
-        "integer",
-        "null"
-      ],
+      "type": ["integer","null"],
       "minimum": 0,
       "maximum": 60,
       "description": "Whole number of years the candidate reports."
     },
     "certifications": {
-      "type": [
-        "array",
-        "null"
-      ],
+      "type": ["array","null"],
       "description": "List of certification strings mentioned (e.g., 'ASE A1', 'State Inspection').",
-      "items": {
-        "type": "string"
-      }
+      "items": { "type": "string" }
     },
     "willing_to_relocate": {
-      "type": [
-        "boolean",
-        "null"
-      ],
+      "type": ["boolean","null"],
       "description": "Whether the candidate is open to relocation."
     },
+
     "salary_expectations": {
-      "type": [
-        "object",
-        "null"
-      ],
+      "type": ["object","null"],
       "additionalProperties": false,
       "properties": {
-        "currency": {
-          "type": "string",
-          "enum": [
-            "USD"
-          ]
-        },
-        "amount": {
-          "type": "number",
-          "minimum": 0
-        },
-        "period": {
-          "type": "string",
-          "enum": [
-            "hour",
-            "year"
-          ],
-          "description": "Pay period for the amount."
-        }
+        "currency": { "type": "string", "enum": ["USD"] },
+        "amount": { "type": "number", "minimum": 0 },
+        "period": { "type": "string", "enum": ["hour","year"], "description": "Pay period for the amount." }
       },
-      "required": [
-        "currency",
-        "amount",
-        "period"
-      ],
+      "required": ["currency","amount","period"],
       "description": "Desired pay. Example: {\"currency\":\"USD\",\"amount\":38.5,\"period\":\"hour\"}"
     },
+
     "contact_preference": {
       "type": "string",
-      "enum": [
-        "phone",
-        "email",
-        "text"
-      ],
+      "enum": ["phone","email","text"],
       "description": "Best way to follow up."
     },
+
     "shop_name": {
-      "type": [
-        "string",
-        "null"
-      ],
+      "type": ["string","null"],
       "description": "If the speaker represents a shop, capture the shop name."
     },
     "multi_location": {
-      "type": [
-        "boolean",
-        "null"
-      ],
+      "type": ["boolean","null"],
       "description": "Whether the shop has multiple locations."
     },
     "locations": {
-      "type": [
-        "array",
-        "null"
-      ],
+      "type": ["array","null"],
       "description": "Known shop locations, if stated.",
       "items": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "city": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "state": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "pattern": "^[A-Z]{2}$",
-            "description": "Two-letter state code"
-          },
-          "zip": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "pattern": "^\\d{5}(-\\d{4})?$"
-          }
+          "city": { "type": ["string","null"] },
+          "state": { "type": ["string","null"], "pattern": "^[A-Z]{2}$", "description": "Two-letter state code" },
+          "zip": { "type": ["string","null"], "pattern": "^\\d{5}(-\\d{4})?$" }
         },
-        "required": [
-          "city",
-          "state",
-          "zip"
-        ]
+        "required": ["city","state","zip"]
       }
     },
+
     "notes": {
-      "type": [
-        "string",
-        "null"
-      ],
+      "type": ["string","null"],
       "description": "Anything relevant that doesn't fit elsewhere (schedule limits, OEM specialties, tools, etc.)."
+    },
+
+    /* ---- Added call metadata & transcript fields ---- */
+    "call_id": {
+      "type": ["string","null"],
+      "description": "Unique identifier for the call, if available."
+    },
+    "call_direction": {
+      "type": ["string","null"],
+      "description": "Direction of the call (e.g., inbound, outbound)."
+    },
+    "call_duration": {
+      "type": ["integer","null"],
+      "minimum": 0,
+      "description": "Call length in seconds."
+    },
+    "call_start_time": {
+      "type": ["string","null"],
+      "description": "Call start timestamp (ISO 8601)."
+    },
+    "call_end_time": {
+      "type": ["string","null"],
+      "description": "Call end timestamp (ISO 8601)."
+    },
+    "user_sentiment": {
+      "type": ["string","null"],
+      "description": "High-level sentiment label from analysis (e.g., Positive/Neutral/Negative)."
+    },
+    "disconnect_reason": {
+      "type": ["string","null"],
+      "description": "Why the call ended (e.g., user_hangup)."
+    },
+    "from_number": {
+      "type": ["string","null"],
+      "description": "Originating number (candidate); same regex as phone.",
+      "pattern": "^[+]?1?[-.\\s]?\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}$"
+    },
+    "to_number": {
+      "type": ["string","null"],
+      "description": "Destination number; same regex as phone.",
+      "pattern": "^[+]?1?[-.\\s]?\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}$"
+    },
+    "date": {
+      "type": ["string","null"],
+      "description": "Conversation date (prefer meeting_event.date if valid; else UTC date portion of call_start_time)."
+    },
+    "recording_url": {
+      "type": ["string","null"],
+      "format": "uri",
+      "description": "Direct URL to call recording, if present."
+    },
+    "transcript": {
+      "type": ["string","null"],
+      "description": "Full text transcript (no truncation)."
     }
   },
+
   "required": [
     "full_name",
+    "first_name",
+    "last_name",
     "email",
     "phone",
     "role",
@@ -178,36 +166,64 @@
     "shop_name",
     "multi_location",
     "locations",
-    "notes"
+    "notes",
+
+    "call_id",
+    "call_direction",
+    "call_duration",
+    "call_start_time",
+    "call_end_time",
+    "user_sentiment",
+    "disconnect_reason",
+    "from_number",
+    "to_number",
+    "date",
+    "recording_url",
+    "transcript"
   ],
+
   "examples": [
     {
-      "full_name": "Jordan M.",
+      "full_name": "Jordan M. Reyes",
+      "first_name": "Jordan",
+      "last_name": "Reyes",
+
       "email": "jordan@example.com",
       "phone": "(404) 555-0134",
+
       "role": "Master Technician (A-tech)",
       "years_experience": 12,
-      "certifications": [
-        "ASE A1-A9",
-        "State Emissions"
-      ],
+      "certifications": ["ASE A1-A9", "State Emissions"],
       "willing_to_relocate": false,
+
       "salary_expectations": {
         "currency": "USD",
         "amount": 42.0,
         "period": "hour"
       },
+
       "contact_preference": "text",
+
       "shop_name": "Jordan's Auto Clinic",
       "multi_location": false,
       "locations": [
-        {
-          "city": "Atlanta",
-          "state": "GA",
-          "zip": "30309"
-        }
+        { "city": "Atlanta", "state": "GA", "zip": "30309" }
       ],
-      "notes": "Prefers Mon\u2013Thu 7\u20135; Hybrid/EV experience."
+
+      "notes": "Prefers Mon–Thu 7–5; Hybrid/EV experience.",
+
+      "call_id": "call_db768fa725d85ca5c8111441bb7",
+      "call_direction": "inbound",
+      "call_duration": 789,
+      "call_start_time": "2025-08-28T13:36:42Z",
+      "call_end_time": "2025-08-28T13:49:51Z",
+      "user_sentiment": "Positive",
+      "disconnect_reason": "user_hangup",
+      "from_number": "+1 (347) 420-8113",
+      "to_number": "+1 (202) 804-9084",
+      "date": "2025-08-28",
+      "recording_url": "https://example.com/recording.wav",
+      "transcript": "Full transcript text goes here..."
     }
   ]
 }
