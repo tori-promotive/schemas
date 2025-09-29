@@ -95,8 +95,6 @@
       "type": ["string","null"],
       "description": "Anything relevant that doesn't fit elsewhere (schedule limits, OEM specialties, tools, etc.)."
     },
-
-    /* ---- Added call metadata & transcript fields ---- */
     "call_id": {
       "type": ["string","null"],
       "description": "Unique identifier for the call, if available."
