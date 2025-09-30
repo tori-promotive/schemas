@@ -272,13 +272,6 @@
       ],
       "description": "Direct URL to call recording, if present.",
       "pattern": "^https?://[^\\s]+$"
-    },
-    "transcript": {
-      "type": [
-        "string",
-        "null"
-      ],
-      "description": "Full text transcript (no truncation)."
     }
   },
   "required": [
