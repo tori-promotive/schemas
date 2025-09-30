@@ -49,11 +49,7 @@
       "description": "Desired pay range. If a single number is provided, set both pay_rate_min and pay_rate_max to that value."
     },
 
-    "contact_preference": {
-      "type": "string", "nullable": true,
-      "enum": ["phone","email","text"],
-      "description": "Best way to follow up."
-    },
+    "contact_preference": { "type": "string", "nullable": true, "enum": ["phone","email","text"], "description": "Best way to follow up." },
     "willing_to_relocate":       { "type": "boolean", "nullable": true, "description": "Whether the candidate is open to relocation." },
     "english_primary_language":  { "type": "boolean", "nullable": true, "description": "Whether the candidate can speak English fluently based on the conversation." },
 
