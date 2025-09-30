@@ -300,8 +300,7 @@
     "from_number",
     "to_number",
     "date",
-    "recording_url",
-    "transcript"
+    "recording_url"
   ],
   "examples": [
     {
@@ -343,8 +342,7 @@
       "from_number": "+1 (347) 420-8113",
       "to_number": "+1 (202) 804-9084",
       "date": "2025-08-28",
-      "recording_url": "https://example.com/recording.wav",
-      "transcript": "Full transcript text goes here..."
+      "recording_url": "https://example.com/recording.wav"
     }
   ]
 }
