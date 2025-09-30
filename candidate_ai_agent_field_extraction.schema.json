@@ -43,12 +43,19 @@
       "description": "Best callback number in any common US format.",
       "pattern": "^[+]?1?[-.\\s]?\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}$"
     },
-    "role": {
+    "job_title": {
       "type": [
         "string",
         "null"
       ],
-      "description": "Target role/title the candidate is interested in (e.g., 'A-tech', 'Service Advisor')."
+      "description": "Current or most recent job title help by candidate. (e.g., 'mechanic', 'technician', 'A-tech', 'Service Advisor', 'B-tech', 'stocker', 'manager', 'foreman', 'service writer', etc.)."
+    },
+    "category": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Target role/title the candidate is interested in (e.g., 'Technician', 'Service Advisor', 'Parts Manager', 'Shop Manager', 'Disel Technician', etc.)."
     },
     "years_experience": {
       "type": [
