@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.com/schemas/promotive-field-extraction.schema.json",
+  "$id": "https://example.com/schemas/candidate_ai_agent_field_extraction.schema.json",
   "title": "Promotive Conversation Field Extraction",
   "description": "Schema for extracting candidate and shop info plus call metadata/transcript for Promotive.",
   "type": "object",
